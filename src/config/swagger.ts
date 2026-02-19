@@ -15,7 +15,8 @@ const options: Options = {
       },
     ],
   },
-  apis: ["./src/swagger/*.ts"], 
+  // Support both TS (dev) and compiled JS (prod) swagger comment files
+  apis: ["./src/swagger/*.ts", "./dist/swagger/*.js", "./src/swagger/*.js"],
 };
 
 export const swaggerSpec = swaggerJSDoc(options);
