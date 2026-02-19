@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"  
+  
 }
 
 datasource db {
@@ -18,7 +18,7 @@ model Candidate{
   name                String 
   skill               String
   experience          Int 
-  langaugeScore       Int
+  languageScore       Int
   documentsVerified   Boolean
   createdAt           DateTime @default(now())
   applications        Application[]
