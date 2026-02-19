@@ -65,3 +65,33 @@ export const createApplicationService=async(
     status,
   });
 };
+
+
+export const listApplicationsByJobService = async (jobId: string) => {
+  const applications =
+    await applicationRepository.findApplicationsByJobId(jobId);
+
+  if (!applications.length) return [];
+
+  // Custom ranking logic
+  const statusPriority = {
+    ELIGIBLE: 1,
+    SHORTLISTED: 1, 
+    REJECTED: 2,
+  };
+
+  return applications.sort((a, b) => {
+    // sorting rule based Status priority
+    const statusDiff =
+      statusPriority[a.status] - statusPriority[b.status];
+    if (statusDiff !== 0) return statusDiff;
+
+    //sorting rule on Higher eligibilityScore first
+    if (b.eligibilityScore !== a.eligibilityScore) {
+      return b.eligibilityScore - a.eligibilityScore;
+    }
+
+    // sorting rule based on Higher experience first
+    return b.candidate.experience - a.candidate.experience;
+  });
+};

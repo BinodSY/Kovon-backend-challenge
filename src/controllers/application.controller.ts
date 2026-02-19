@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { createApplicationService } from "../services/application.service.js";
+import { createApplicationService,listApplicationsByJobService } from "../services/application.service.js";
 
 export const createApplicationController = async (
   req: Request,
@@ -20,6 +20,31 @@ export const createApplicationController = async (
   } catch (error: any) {
     return res.status(400).json({
       message: error.message,
+    });
+  }
+};
+
+
+export const listApplicationsController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { jobId } = req.query;
+
+    if (!jobId || typeof jobId !== "string") {
+      return res.status(400).json({
+        message: "jobId query parameter is required",
+      });
+    }
+
+    const applications = await listApplicationsByJobService(jobId);
+
+    return res.status(200).json(applications);
+  } catch (error) {
+    return res.status(500).json({
+      message: "Internal Server Error",
+      error:error instanceof Error ? error.message : "Unknown error"
     });
   }
 };

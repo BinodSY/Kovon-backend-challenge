@@ -37,3 +37,14 @@ export const createApplication = async (data: {
     data,
   });
 };
+
+
+export const findApplicationsByJobId = async (jobId: string) => {
+  return prisma.application.findMany({
+    where: { jobId },
+    include: {
+      candidate: true,
+    },
+  });
+};
+
