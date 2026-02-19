@@ -48,3 +48,25 @@ export const findApplicationsByJobId = async (jobId: string) => {
   });
 };
 
+export const findApplicationById = async (id: string) => {
+  return prisma.application.findUnique({
+    where: { id },
+  });
+};
+
+export const shortlistApplicationIfEligible = async (
+  id: string
+) => {
+  const result = await prisma.application.updateMany({
+    where: {
+      id,
+      status: ApplicationStatus.ELIGIBLE,
+    },
+    data: {
+      status: ApplicationStatus.SHORTLISTED,
+    },
+  });
+
+  return result;
+};
+

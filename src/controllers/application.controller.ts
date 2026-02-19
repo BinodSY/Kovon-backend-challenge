@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { createApplicationService,listApplicationsByJobService } from "../services/application.service.js";
+import { createApplicationService,listApplicationsByJobService,shortlistApplicationService } from "../services/application.service.js";
 
 export const createApplicationController = async (
   req: Request,
@@ -45,6 +45,30 @@ export const listApplicationsController = async (
     return res.status(500).json({
       message: "Internal Server Error",
       error:error instanceof Error ? error.message : "Unknown error"
+    });
+  }
+};
+
+export const shortlistApplicationController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res.status(400).json({
+        message: "id query parameter is required",
+      });
+    }
+
+    const response =
+      await shortlistApplicationService(id);
+
+    return res.status(200).json(response);
+  } catch (error: any) {
+    return res.status(400).json({
+      message: error.message,
     });
   }
 };

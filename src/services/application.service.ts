@@ -95,3 +95,20 @@ export const listApplicationsByJobService = async (jobId: string) => {
     return b.candidate.experience - a.candidate.experience;
   });
 };
+
+
+export const shortlistApplicationService = async (id: string) => {
+  const result =
+    await applicationRepository.shortlistApplicationIfEligible(id);
+
+  if (result.count === 0) {
+    throw new Error(
+      "Application not found or not eligible for shortlisting"
+    );
+  }
+
+  return {
+    message: "Application shortlisted successfully",
+  };
+};
+
