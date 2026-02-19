@@ -1,9 +1,9 @@
-version: '3.8'
+version: "3.8"
 
 services:
   postgres:
     image: postgres:16
-    container_name: kovon
+    container_name: kovon_postgres
     environment:
       POSTGRES_USER: kovon
       POSTGRES_PASSWORD: kovon123
@@ -13,10 +13,23 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U kovon"]
+      test: ["CMD-SHELL", "pg_isready -U kovon -d kovon_db"]
       interval: 10s
       timeout: 5s
       retries: 5
+
+  app:
+    build: .
+    container_name: kovon_app
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://kovon:kovon123@postgres:5432/kovon_db
+      NODE_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
 
 volumes:
   postgres_data:
