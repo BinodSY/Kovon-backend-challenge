@@ -1,0 +1,40 @@
+// sample date for candidate
+{
+  "name": "mohan",
+  "skill": "Nurse",
+  "experience": 6,
+  "languageScore": 80,
+  "documentsVerified": true
+}
+
+{
+  "name": "Rahul",
+  "skill": "Nurse",
+  "experience": 4,
+  "languageScore": 75,
+  "documentsVerified": true
+}
+
+
+{
+  "name": "neha",
+  "skill": "Nurse",
+  "experience": 4,
+  "languageScore": 55,
+  "documentsVerified": true
+}
+
+
+//sample data for job
+{
+  "title": "Registered Nurse",
+  "country": "Germany",
+  "minExperience": 2,
+  "minLanguageScore": 60
+}
+
+//sample data for job apply
+{
+  "candidateId": "UUID",
+  "jobId": "UUID"
+}
