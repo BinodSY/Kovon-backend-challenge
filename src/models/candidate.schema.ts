@@ -5,5 +5,6 @@ export const createCandidateSchema = z.object({
     skill: z.string().min(1),
     experience:z.number().int().min(0),
     languageScore :z.number().min(0).max(100),
-    documentsVerified: z.boolean(),
 });
+
+//documentsVerified: z.boolean(),to avoid issues with zod and prisma boolean type, we will handle this in the service layer

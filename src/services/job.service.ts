@@ -8,3 +8,7 @@ export const createJobService = async (data: {
 }) => {
   return jobRepository.createJob(data);
 };
+
+export const findAllJobService=async(limit:number,page:number)=>{
+  return jobRepository.findAllJobs(limit,page);
+}

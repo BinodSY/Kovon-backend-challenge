@@ -112,3 +112,27 @@ export const shortlistApplicationService = async (id: string) => {
   };
 };
 
+export const getFilteredApplications = async (query: any) => {
+
+  const filters: any = {};
+
+  if (query.status) {
+    filters.status = query.status as ApplicationStatus;
+  }
+
+  if (query.jobId) {
+    filters.jobId = query.jobId;
+  }
+
+  if (query.candidateId) {
+    filters.candidateId = query.candidateId;
+  }
+
+  if (query.minScore) {
+    filters.eligibilityScore = {
+      gte: Number(query.minScore)
+    };
+  }
+
+  return applicationRepository.filterApplications(filters);
+};

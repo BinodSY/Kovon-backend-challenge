@@ -1,5 +1,5 @@
 import { prisma } from "../utils/prisma.js";
-import { ApplicationStatus } from "@prisma/client";
+import { ApplicationStatus, Prisma } from "@prisma/client";
 
 export const findCandidateById = async (id: string) => {
   return prisma.candidate.findUnique({
@@ -70,3 +70,17 @@ export const shortlistApplicationIfEligible = async (
   return result;
 };
 
+export const filterApplications = async (
+  filters: Prisma.ApplicationWhereInput
+) => {
+  return prisma.application.findMany({
+    where: filters,
+    include: {
+      candidate: true,
+      job: true
+    },
+    orderBy: {
+      createdAt: "desc"
+    }
+  });
+};

@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { createApplicationService,listApplicationsByJobService,shortlistApplicationService } from "../services/application.service.js";
+import { createApplicationService,getFilteredApplications,listApplicationsByJobService,shortlistApplicationService } from "../services/application.service.js";
 
 export const createApplicationController = async (
   req: Request,
@@ -69,6 +69,28 @@ export const shortlistApplicationController = async (
   } catch (error: any) {
     return res.status(400).json({
       message: error.message,
+    });
+  }
+};
+
+
+
+export const getApplicationsController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+
+    const applications = await getFilteredApplications(req.query);
+
+    res.status(200).json({
+      message: "Applications fetched successfully",
+      data: applications
+    });
+
+  } catch (error: any) {
+    res.status(500).json({
+      message: error.message
     });
   }
 };

@@ -51,6 +51,43 @@ model Application {
   @@unique([candidateId, jobId])
 }
 
+
+model Employer {
+  id                  String   @id @default(uuid())
+  companyName         String
+  email               String   @unique
+  country             String
+  registrationNumber  String   @unique
+  verified            Boolean  @default(false)
+  createdAt           DateTime @default(now())
+
+  documents           EmployerDocument[]
+}
+
+model EmployerDocument {
+  id          String   @id @default(uuid())
+  employerId  String
+  documentType DocumentType
+  documentUrl String
+  status      EmployerDocumentStatus @default(PENDING)
+
+  employer    Employer @relation(fields: [employerId], references: [id])
+
+  @@index([employerId])
+}
+
+enum EmployerDocumentStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum DocumentType {
+  BUSINESS_LICENSE
+  COMPANY_REGISTRATION
+  TAX_CERTIFICATE
+}
+
 enum ApplicationStatus {
   ELIGIBLE
   REJECTED

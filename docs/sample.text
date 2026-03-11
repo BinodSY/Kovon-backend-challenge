@@ -33,8 +33,91 @@
   "minLanguageScore": 60
 }
 
+{
+  "title": "plumber",
+  "country": "Germany",
+  "minExperience": 3,
+  "minLanguageScore": 750
+}
+
+{
+  "title": "Electricion",
+  "country": "UAE",
+  "minExperience": 3,
+  "minLanguageScore": 80
+}
+
+{
+  "title": "UI/UX Designer",
+  "country": "USA",
+  "minExperience": 3,
+  "minLanguageScore": 80
+}
+
+{
+  "title": "Registered Nurse",
+  "country": "Paris",
+  "minExperience": 2,
+  "minLanguageScore": 60
+}
+
+{
+  "title": "febricator",
+  "country": "Germany",
+  "minExperience": 6,
+  "minLanguageScore": 60
+}
+
+{
+  "title": "driver",
+  "country": "korea",
+  "minExperience": 3,
+  "minLanguageScore": 50
+}
+
+{
+  "title": "painter",
+  "country": "4",
+  "minExperience": 2,
+  "minLanguageScore": 58
+}
+
+
+{
+  "title": "Truck Driver",
+  "country": "paris",
+  "minExperience": 3,
+  "minLanguageScore": 60
+}
+
 //sample data for job apply
 {
   "candidateId": "UUID",
   "jobId": "UUID"
+}
+
+
+//sample response for filter based search of application
+
+Filter by status
+GET /applications?status=ELIGIBLE
+Filter by job
+GET /applications?jobId=job123
+Filter by score
+GET /applications?minScore=80
+{
+  "message": "Applications fetched successfully",
+  "data": [
+    {
+      "id": "app1",
+      "eligibilityScore": 82,
+      "status": "ELIGIBLE",
+      "candidate": {
+        "name": "John"
+      },
+      "job": {
+        "title": "Backend Developer"
+      }
+    }
+  ]
 }
